@@ -9,9 +9,10 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <p id = "output">You shouldn't see this</p>
+    <p id = "output">If you're seeing this, something broke</p>
+	<!--Javascript goes here-->
 	<script type="text/babel">
-      
+      document.getElementById("output").innerHTML = "This is what you should be seeing";
     </script>
   </body>
 </html>
