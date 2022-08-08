@@ -9,10 +9,22 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <p id = "output">If you're seeing this, something broke</p>
+    <p id = "numPowers">If you're seeing this, something broke</p>
+	<p id = "numWeaknesses">If you're seeing this, something broke</p>
+	<p id = "test line">something broke</p>
 	<!--Javascript goes here-->
 	<script type="text/babel">
-      document.getElementById("output").innerHTML = "This is what you should be seeing";
+	  let numOfPowers = Math.floor(Math.random() * 5) + 1;
+	  let numOfWeaknesses = Math.floor(Math.random() * 6);
+	  //numPowers output
+      document.getElementById("numPowers").innerHTML = "You have "  + numOfPowers + " powers";
+	  document.getElementById("numWeaknesses").innerHTML = "You also have " + numOfWeaknesses + " weaknesses";
+	  //generate powers
+	  let testOut = 0;
+	  for(let p = 0; p < numOfPowers; p++){
+	    testOut += p;
+	  }
+	  document.getElementById("test line").innerHTML = testOut;
     </script>
   </body>
 </html>
