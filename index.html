@@ -27,18 +27,23 @@
 	  const physicalTargets = ["materials", "body parts", "animals", "plants"];
 	  const materials = ["metal", "wood", "water", "plastic"]; //Expand Later
 	  const bodyParts = ["head", "eyes", "nose", "mouth", "ears", "torso", "arms", "legs", "teeth", "fingers", "toes", "nails", "hair"];
-	  const animals = ["any animal", "dogs", "cats", "fish", "snakes", "bugs", "spiders", "birds", "bats", "horses", "rats", "lizards", "frogs"]; //expand later
+	  const animals = ["any animal", "yourself", "dogs", "cats", "fish", "snakes", "bugs", "spiders", "birds", "bats", "horses", "rats", "lizards", "frogs"]; //expand later
+	  const physicalAttributes = ["durability", "size", "traction", "stability"]; //Expand later
+	  const characterAttributes = ["constitution", "dexterity", "speed", "intelligence", "strength"];
 	  const ranges = ["in your body", "distance", "that you can see", "that you can hear", "that you can smell", "that you can taste", "that you touch"];
+	  const distances = ["inches", "feet", "meters", "miles"];
 	  //Power Generator
 	  for(let p = 0; p < numOfPowers; p++){
 	    //create new power object
 	    let power = {
-		  type: "Enhancer",
-		  output: "Something Broke"
+		  type: types[Math.floor(Math.random() * types.length)],
+		  output: "Something Broke way different"
 		}
 		//Fill power object
 		if(power.type === "Enhancer"){
+		  //target type
 		  power.targetType = physicalTargets[Math.floor(Math.random() * physicalTargets.length)];
+		  //target
           if(power.targetType === "materials"){
             power.target = materials[Math.floor(Math.random() * materials.length)];
           }else if(power.targetType === "body parts"){
@@ -48,10 +53,22 @@
 		  }else if(power.targetType === "plants"){
 		    power.target = plants[Math.floor(Math.random() * plants.length)];
 		  }
+		  //attributes
+		  if(!(power.targetType === "animals")){
+		    power.attribute = physicalAttributes[Math.floor(Math.random() * physicalAttributes.length)];
+		  }else{
+		    power.attribute = characterAttributes[Math.floor(Math.random() * characterAttributes.length)];
+		  }
+		  //range
+		  const tempRange = ranges[Math.floor(Math.random() * ranges.length)];
+		  if(tempRange === "distance"){
+		    tempRange = "within " + Math.floor(Math.random() * 100) + distances[Math.floor(Math.random() * distances.length)];
+		  }
+		  power.range = tempRange;
 		  //set output string
-		  power.output = "you can enhance ";
+		  power.output = "you can enhance the " + power.attribute + " of " + power.target + " " + power.range;
 		}else if (power.type === "Emitter"){
-		
+		  
 		}else if(power.type === "Manipulator"){
 		
 		}else if(power.type === "Conjurer"){
@@ -64,7 +81,7 @@
 	  }
 	  //Output powertype to the test paragraph
 	  document.getElementById("test line").innerHTML = "Something different broke";
-	  document.getElementById("test line").innerHTML = powers[0].target;
+	  document.getElementById("test line").innerHTML = powers[0].output;
     </script>
   </body>
 </html>
