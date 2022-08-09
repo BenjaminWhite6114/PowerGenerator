@@ -19,12 +19,52 @@
 	  //numPowers output
       document.getElementById("numPowers").innerHTML = "You have "  + numOfPowers + " powers";
 	  document.getElementById("numWeaknesses").innerHTML = "You also have " + numOfWeaknesses + " weaknesses";
-	  //generate powers
-	  let testOut = 0;
+	  //Power list
+	  let powers = [];
+	  //Refrence Arrays
+	  const types = ["Enhancer", "Emitter", "Manipulator", "Conjurer", "Transmuter"];
+	  const targetTypes = ["known", "energies", "attributes", "materials", "body parts", "animals", "plants"];
+	  const physicalTargets = ["materials", "body parts", "animals", "plants"];
+	  const materials = ["metal", "wood", "water", "plastic"]; //Expand Later
+	  const bodyParts = ["head", "eyes", "nose", "mouth", "ears", "torso", "arms", "legs", "teeth", "fingers", "toes", "nails", "hair"];
+	  const animals = ["any animal", "dogs", "cats", "fish", "snakes", "bugs", "spiders", "birds", "bats", "horses", "rats", "lizards", "frogs"]; //expand later
+	  const ranges = ["in your body", "distance", "that you can see", "that you can hear", "that you can smell", "that you can taste", "that you touch"];
+	  //Power Generator
 	  for(let p = 0; p < numOfPowers; p++){
-	    testOut += p;
+	    //create new power object
+	    let power = {
+		  type: "Enhancer",
+		  output: "Something Broke"
+		}
+		//Fill power object
+		if(power.type === "Enhancer"){
+		  power.targetType = physicalTargets[Math.floor(Math.random() * physicalTargets.length)];
+          if(power.targetType === "materials"){
+            power.target = materials[Math.floor(Math.random() * materials.length)];
+          }else if(power.targetType === "body parts"){
+		    power.target = bodyParts[Math.floor(Math.random() * bodyParts.length)];
+		  }else if(power.targetType === "animals"){
+		    power.target = animals[Math.floor(Math.random() * animals.length)];
+		  }else if(power.targetType === "plants"){
+		    power.target = plants[Math.floor(Math.random() * plants.length)];
+		  }
+		  //set output string
+		  power.output = "you can enhance ";
+		}else if (power.type === "Emitter"){
+		
+		}else if(power.type === "Manipulator"){
+		
+		}else if(power.type === "Conjurer"){
+		
+		}else if(power.type === "Transmuter"){
+		
+		}
+		//add new power to powers list
+		powers.push(power);
 	  }
-	  document.getElementById("test line").innerHTML = testOut;
+	  //Output powertype to the test paragraph
+	  document.getElementById("test line").innerHTML = "Something different broke";
+	  document.getElementById("test line").innerHTML = powers[0].target;
     </script>
   </body>
 </html>
