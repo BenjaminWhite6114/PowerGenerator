@@ -19,16 +19,41 @@ const physicalTargets = [animals, plants, bodyParts, materials, chemicals];
 const livingTargets = [animals, plants];
 const organicTargets = [animals, plants, bodyParts];
 const allTargets = [animals, plants, bodyParts, materials, chemicals, energies];
-//FUNCTIONS
+//ranges
+const ranges = ["distance", "exist inside or as a part of you", "you are touching", "you can see", "you can hear", "you can taste"];
+const distances = ["milimeters", "cenitimeters", "inches", "feet", "meters", "kilometers", "miles"];
+
+
+//SUPPORT FUNCTIONS
 //select random item from an Array
 const randomIndex = (array) =>{
-	return array[Math.floor(Math.random * array.length)];
+	return array[Math.floor(Math.random() * array.length)];
 }
 //generate a random target. target(matrix of target types that are acceptable)
-function target(type){
+const target = (type) => {
 	const targetGroup = randomIndex(type);
 	return randomIndex(targetGroup);
 }
+//generate a random distance
+range = () => {
+	const tempRange = randomIndex(ranges);
+	if(tempRange === "distance"){
+		return "within " + Math.floor(Math.random() * 100) +  " " + randomIndex(distances);
+	}else{
+		return "that " + tempRange;
+	}
+}
 
+
+//POWER FUNCTIONS
+sense = () => {
+	const power = {
+		output: "power's output property never changed"
+	}
+	power.target = target(allTargets);
+	power.range = range();
+	power.output = "You can sense " + power.target + " " + power.range;
+	return power;
+}
 //SET OUTPUT LINE OF HTML
-document.getElementById("output").innerHTML = target(allTargets);
+document.getElementById("output").innerHTML = sense().output;
