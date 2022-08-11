@@ -1,87 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--Title-->
-    <title>Power Generator</title>
-	<!--React imports. idk if these are necessary-->
-	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Super Power Randomizer</title>
+	
   </head>
   <body>
-    <p id = "numPowers">If you're seeing this, something broke</p>
-	<p id = "numWeaknesses">If you're seeing this, something broke</p>
-	<p id = "test line">something broke</p>
-	<!--Javascript goes here-->
-	<script type="text/babel">
-	  let numOfPowers = Math.floor(Math.random() * 5) + 1;
-	  let numOfWeaknesses = Math.floor(Math.random() * 6);
-	  //numPowers output
-      document.getElementById("numPowers").innerHTML = "You have "  + numOfPowers + " powers";
-	  document.getElementById("numWeaknesses").innerHTML = "You also have " + numOfWeaknesses + " weaknesses";
-	  //Power list
-	  let powers = [];
-	  //Refrence Arrays
-	  const types = ["Enhancer", "Emitter", "Manipulator", "Conjurer", "Transmuter"];
-	  const targetTypes = ["known", "energies", "attributes", "materials", "body parts", "animals", "plants"];
-	  const physicalTargets = ["materials", "body parts", "animals", "plants"];
-	  const materials = ["metal", "wood", "water", "plastic"]; //Expand Later
-	  const bodyParts = ["head", "eyes", "nose", "mouth", "ears", "torso", "arms", "legs", "teeth", "fingers", "toes", "nails", "hair"];
-	  const animals = ["any animal", "yourself", "dogs", "cats", "fish", "snakes", "bugs", "spiders", "birds", "bats", "horses", "rats", "lizards", "frogs"]; //expand later
-	  const physicalAttributes = ["durability", "size", "traction", "stability"]; //Expand later
-	  const characterAttributes = ["constitution", "dexterity", "speed", "intelligence", "strength"];
-	  const ranges = ["in your body", "distance", "that you can see", "that you can hear", "that you can smell", "that you can taste", "that you touch"];
-	  const distances = ["inches", "feet", "meters", "miles"];
-	  //Power Generator
-	  for(let p = 0; p < numOfPowers; p++){
-	    //create new power object
-	    let power = {
-		  type: types[Math.floor(Math.random() * types.length)],
-		  output: "Something Broke way different"
-		}
-		//Fill power object
-		if(power.type === "Enhancer"){
-		  //target type
-		  power.targetType = physicalTargets[Math.floor(Math.random() * physicalTargets.length)];
-		  //target
-          if(power.targetType === "materials"){
-            power.target = materials[Math.floor(Math.random() * materials.length)];
-          }else if(power.targetType === "body parts"){
-		    power.target = bodyParts[Math.floor(Math.random() * bodyParts.length)];
-		  }else if(power.targetType === "animals"){
-		    power.target = animals[Math.floor(Math.random() * animals.length)];
-		  }else if(power.targetType === "plants"){
-		    power.target = plants[Math.floor(Math.random() * plants.length)];
-		  }
-		  //attributes
-		  if(!(power.targetType === "animals")){
-		    power.attribute = physicalAttributes[Math.floor(Math.random() * physicalAttributes.length)];
-		  }else{
-		    power.attribute = characterAttributes[Math.floor(Math.random() * characterAttributes.length)];
-		  }
-		  //range
-		  const tempRange = ranges[Math.floor(Math.random() * ranges.length)];
-		  if(tempRange === "distance"){
-		    tempRange = "within " + Math.floor(Math.random() * 100) + distances[Math.floor(Math.random() * distances.length)];
-		  }
-		  power.range = tempRange;
-		  //set output string
-		  power.output = "you can enhance the " + power.attribute + " of " + power.target + " " + power.range;
-		}else if (power.type === "Emitter"){
-		  
-		}else if(power.type === "Manipulator"){
-		
-		}else if(power.type === "Conjurer"){
-		
-		}else if(power.type === "Transmuter"){
-		
-		}
-		//add new power to powers list
-		powers.push(power);
-	  }
-	  //Output powertype to the test paragraph
-	  document.getElementById("test line").innerHTML = "Something different broke";
-	  document.getElementById("test line").innerHTML = powers[0].output;
-    </script>
+    <h1 id = "title">The Super Power Randomizer</h1>
+	<p id = "description">Reload the website to generate new randomized super powers. They may not all be good powers, but that's part of the fun!</p>
+	<p id = "output">Output html was not changed</p>
+	<!--This calls the javascript file-->
+	<script src = "generator.js"></script>
   </body>
 </html>
