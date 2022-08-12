@@ -1,7 +1,8 @@
 //Everything here gets run every time the page loads
-document.getElementById("output").innerHTML = "Javascript was loaded, but didn't output";
+document.getElementById("output").innerHTML = "Javascript loaded, but did not output. I have no idea what you did wrong.";
 
 //ARRAYS
+document.getElementById("output").innerHTML = "You fucked up the arrays again";
 //specific target types DO NOT EDIT ELEMENT 0 adding new target types will require additions to the target function
 const animals = ["any animal", "any bug", "any domesticated animals", "any aquatic animals", "any animal which can fly", "people", "cats", "dogs", "rats", "spiders", "flies", "horses", 
 "cows", "bats", "snakes", "worms", "beetles", "birds", "fish", "whales","eels", "lizards", "chickens", "possums", "raccoons", "frogs", "turtles"];
@@ -25,12 +26,13 @@ const distances = ["milimeters", "cenitimeters", "inches", "feet", "meters", "ki
 //shapes
 const shapes = ["spheres", "cubes", "pyramids", "needles", "ropes", "ribbons", "cylinders"];
 //properties
-const physcialProperties = ["slippery", "sticky", "bouncy", "brittle", "indestructible",
-	"burning", "poisionous", "freezing", "glowing", "plain"];
+const physicalProperties = ["slippery", "sticky", "bouncy", "brittle", "indestructible", "burning", "toxic", "freezing", "glowing", "ordinary"];
 const characterProperties = ["intelligence", "strength", "flexibility", "durability", "constitution", "regeneration"];
 const propertyTypes = [physicalProperties, characterProperties];
 
+
 //SUPPORT FUNCTIONS
+document.getElementById("output").innerHTML = "Looks like somethings wrong with the support functions";
 //select random item from an Array
 const randomIndex = (array) =>{
 	return array[Math.floor(Math.random() * array.length)];
@@ -81,11 +83,16 @@ shape = () => {
 	shapeObject.output = shapeObject.property + " " + shapeObject.shape + " made of " + shapeObject.material;
 	return shapeObject;
 }
+//I hate that I need this. adds the word "enhanced" to a character property
+enhance = () => {
+	return "enhanced " + randomIndex(characterProperties);
+}
 
 //POWER FUNCTIONS
+document.getElementById("output").innerHTML = "looks like somethings wrong with the power functions";
 sense = () => {
 	const power = {
-		output: "power's output property never changed"
+		output: "power's output property never changed (sense)"
 	}
 	power.targetObject = target(allTargets);
 	power.target = power.targetObject.target;
@@ -95,21 +102,35 @@ sense = () => {
 }
 imbue = () => {
 	const power = {
-		output: "power's output property never changed"
+		output: "power's output property never changed (imbue)"
 	}
-	power.targetObject = target(allTargets);
+	power.targetObject = target(physicalTargets);
 	power.target = power.targetObject.target;
+	power.range = range();
 	if (power.targetObject.typeName === "animals" || power.targetObject.typeName === "plants") {
-		power.propertyType = randomIndex(propertyTypes);
-		power.property = randomIndex(power.propertyType);
+		power.propertyType = randomIndex(physicalProperties);
+		if (power.propertyType[0] === "intelligence") {
+			power.property = enhance();
+			power.output = "you can " + power.property + " " + power.target + " " + power.range;
+		} else {
+			power.property = randomIndex(physicalProperties);
+			power.output = "you can cause " + power.target + " " + power.range + " to become " + power.property;
+        }
 	} else {
 		power.propertyType = physicalProperties;
 		power.property = randomIndex(power.propertyType);
+		power.output = "you can cause " + power.target + " " + power.range + " to become " + power.property;
 	}
-
+	
 	return power;
+}
+emit = () => {
+	const power = {
+		out: "power's output property never changed (emit)"
+    }
 }
 
 
 //SET OUTPUT LINE OF HTML
-document.getElementById("output").innerHTML = sense().output;
+document.getElementById("output").innerHTML = "something's wrong with what you tried to output";
+document.getElementById("output").innerHTML = imbue().output;
