@@ -20,11 +20,12 @@ const physicalTargets = [animals, plants, bodyParts, materials, chemicals];
 const livingTargets = [animals, plants];
 const organicTargets = [animals, plants, bodyParts];
 const allTargets = [animals, plants, bodyParts, materials, chemicals, energies];
+const emitterTargets = [animals, plants, bodyParts, materials];
 //ranges
 const ranges = ["distance", "exist inside or as a part of you", "you are touching", "you can see", "you can hear", "you can taste"];
 const distances = ["milimeters", "cenitimeters", "inches", "feet", "meters", "kilometers", "miles"];
 //shapes
-const shapes = ["spheres", "cubes", "pyramids", "needles", "ropes", "ribbons", "cylinders"];
+const shapes = ["spheres", "cubes", "pyramids", "needles", "ropes", "ribbons", "cylinders", "bullets"];
 //properties
 const physicalProperties = ["slippery", "sticky", "bouncy", "brittle", "indestructible", "burning", "toxic", "freezing", "glowing", "ordinary"];
 const characterProperties = ["intelligence", "strength", "flexibility", "durability", "constitution", "regeneration"];
@@ -75,10 +76,9 @@ range = () => {
 shape = () => {
 	const shapeObject = {
 		output: "shape's output property never changed",
-		test: "properties are accessible"
 	}
 	shapeObject.shape = randomIndex(shapes);
-	shapeObject.property = randomIndex(physcialProperties);
+	shapeObject.property = randomIndex(physicalProperties);
 	shapeObject.material = randomIndex(materials);
 	shapeObject.output = shapeObject.property + " " + shapeObject.shape + " made of " + shapeObject.material;
 	return shapeObject;
@@ -86,6 +86,25 @@ shape = () => {
 //I hate that I need this. adds the word "enhanced" to a character property
 enhance = () => {
 	return "enhanced " + randomIndex(characterProperties);
+}
+//returns 0 or 1
+coinFlip = () => {
+	return Math.floor(Math.random() * 1.5);
+}
+//generaters random projectiles
+projectile = () => {
+	const projectile = {
+		projectile: "projectile output was never set"
+	}
+	if (coinFlip() === 0) {
+		projectile.type = "target";
+		projectile.projectileSubType = randomIndex(allTargets);
+		projectile.projectile = randomIndex(projectile.projectileSubType);
+	} else {
+		projectile.type = "shape";
+		projectile.projectile = shape().output;
+	}
+	return projectile;
 }
 
 //POWER FUNCTIONS
@@ -126,11 +145,18 @@ imbue = () => {
 }
 emit = () => {
 	const power = {
-		out: "power's output property never changed (emit)"
-    }
+		output: "power's output property never changed (emit)"
+	}
+	power.originObject = target(emitterTargets);
+	power.origin = power.originObject.target;
+	power.range = range();
+	power.projectileObject = projectile();
+	power.projectile = power.projectileObject.projectile;
+	power.output = "you can shoot " + power.projectile + " from " + power.origin + " " + power.range;
+	return power;
 }
 
 
 //SET OUTPUT LINE OF HTML
 document.getElementById("output").innerHTML = "something's wrong with what you tried to output";
-document.getElementById("output").innerHTML = imbue().output;
+document.getElementById("output").innerHTML = sense().output;
