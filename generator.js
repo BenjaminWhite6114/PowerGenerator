@@ -9,8 +9,8 @@ const animals = ["any animal", "any bug", "any domesticated animals", "any aquat
 const plants = ["any plant", "any herb", "any edible plant", "trees", "flowers", "cacti", "vines", "ferns", "grasses", "bushes", "mushrooms", "mosses"];
 const bodyParts = ["any body part", "heads", "bodys", "arms", "legs", "hands", "feet", "eyes", "mouths", "noses", "ears", "teeth", "skin", "hair", "knuckles", "elbows", "knees", "fingers", 
 "toes", "necks"];
-const materials = ["anything", "stone", "clay", "metal", "sand", "wood", "plastic", "rubber", "cement", "cotton", "cloth", "steal", "brass", "bronze", "paper", "glass", "diamond", "crystal", "meat"];
-const chemicals = ["hydrogen", "helium", "carbon", "nitrogen", "oxygen", "flourine", "neon", "sodium", "magnesium", "aluminium", "silicon", "sulfur", "chlorine", "argon", "potassium", 
+const materials = ["anything", "stone", "clay", "metal", "sand", "wood", "plastic", "rubber", "cement", "cotton", "cloth", "steel", "brass", "bronze", "paper", "glass", "diamond", "crystal", "meat"];
+const chemicals = ["hydrogen", "helium", "lithium", "carbon", "nitrogen", "oxygen", "flourine", "neon", "sodium", "magnesium", "aluminium", "silicon", "sulfur", "chlorine", "argon", "potassium", 
 "calcium", "titanium", "magnesium", "iron", "cobalt", "nickle", "copper", "zinc", "silver", "tin", "iodine", "xenon", "cesium", "tungsten", "osmium", "iridium", "platinum", "gold", 
 "mercury", "lead", "francium", "neodymium", "thorium", "uranium", "plutonium", "hassium", "meitnerium", "carbon dioxide", "hydrogen peroxide", "ammonia", "hydrocloric acid", "sulfuric acid", 
 "nitroglycerin", "methane", "bleach", "water"];
@@ -85,7 +85,7 @@ shape = () => {
 }
 //I hate that I need this. adds the word "enhanced" to a character property
 enhance = () => {
-	return "enhanced " + randomIndex(characterProperties);
+	return "enhance the " + randomIndex(characterProperties);
 }
 //returns 0 or 1
 coinFlip = () => {
@@ -127,10 +127,10 @@ imbue = () => {
 	power.target = power.targetObject.target;
 	power.range = range();
 	if (power.targetObject.typeName === "animals" || power.targetObject.typeName === "plants") {
-		power.propertyType = randomIndex(physicalProperties);
+		power.propertyType = randomIndex(propertyTypes);
 		if (power.propertyType[0] === "intelligence") {
 			power.property = enhance();
-			power.output = "you can " + power.property + " " + power.target + " " + power.range;
+			power.output = "you can " + power.property + " of " + power.target + " " + power.range;
 		} else {
 			power.property = randomIndex(physicalProperties);
 			power.output = "you can cause " + power.target + " " + power.range + " to become " + power.property;
@@ -155,8 +155,53 @@ emit = () => {
 	power.output = "you can shoot " + power.projectile + " from " + power.origin + " " + power.range;
 	return power;
 }
+manipulate = () => {
+	const power = {
+		output: "power's output property never changed (manipulate)"
+	}
+	power.targetObject = target(allTargets);
+	power.target = power.targetObject.target;
+	power.range = range();
+	power.output = "you can control " + power.target + " " + power.range;
+	return power;
+}
+conjure = () => {
+	const power = {
+		output: "power's output property never changed (conjure)"
+	}
+	power.originObject = target(allTargets);
+	power.origin = power.originObject.target;
+	power.range = range();
+	if (coinFlip() === 0) {
+		power.conjuredObject = target(allTargets);
+		power.conjured = power.conjuredObject.target;
+	} else {
+		power.conjuredObject = shape();
+		power.conjured = power.conjuredObject.output;
+	}
+	power.output = "you can conjure " + power.conjured + " from " + power.origin + " " + power.range;
+	return power;
+}
+transmute = () => {
+	const power = {
+		output: "power's output property never changed (transmute)"
+	}
+	power.transmuteObject = target(physicalTargets);
+	power.transmute = power.transmuteObject.target;
+	power.range = range();
+	if (coinFlip() === 0) {
+		power.transmutedObject = target(allTargets);
+		power.transmuted = power.transmutedObject.target;
+	} else {
+		power.transmutedObject = shape();
+		power.transmuted = power.transmutedObject.output;
+	}
+	power.output = "you can turn " + power.transmute + " " + power.range + " into " + power.transmuted;
+	return power;
+}
 
-
+//POWERS ARRAY
+const powers = [sense, imbue, emit, manipulate, conjure, transmute];
 //SET OUTPUT LINE OF HTML
 document.getElementById("output").innerHTML = "something's wrong with what you tried to output";
-document.getElementById("output").innerHTML = sense().output;
+document.getElementById("output").innerHTML = randomIndex(powers)().output;
